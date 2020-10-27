@@ -2,6 +2,11 @@
 
 O Pyprocar-dat é uma extensão do pyprocar, para exportar as bandas projetadas em .dat.
 
+Verifique as dependências:
+
+--> Pandas (pip3 install pandas --user)
+
+
 ### Primeiro passo:
 
 Instale o [pyprocar](https://romerogroup.github.io/pyprocar/).
