@@ -64,6 +64,11 @@ Projetando assim o átomo Si.:runner:
 
 ESPERO TER AJUDADO!! :bowtie:
 
+### Ahh...em outros Scripts (Other-Scripts)
+
+spin.py --> Vai dividir o PROCAR em PROCAR-up e PROCAR-down (isso para cálculos com spin-polarizado)
+paste.sh --> é um script simples (por isso feito no shell), para concatenar colunas de bandas projetadas, caso queira plotar duas projeções no mesmo gráfico
+
 
 
 
