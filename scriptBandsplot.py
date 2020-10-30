@@ -63,14 +63,15 @@ def bandsplot(
     lobstercode="qe",
     label=None,
     nbands=20,
+    datspin=False
 ):
 
-    """This function plots band structures
-  """
+  #  """This function plots band structures
+  #"""
     welcome()
 
     # Turn interactive plotting off
-    plt.ioff()
+   # plt.ioff()
 
     # Verbose section
 
@@ -86,13 +87,13 @@ def bandsplot(
     if orbitals is None:
         orbitals = [-1]
 
-    print("Script initiated")
-    print("code           : ", code)
-    print("input file     : ", procarfile)
-    print("mode           : ", mode)
-    print("spin comp.     : ", spin)
-    print("atoms list     : ", atoms)
-    print("orbs. list     : ", orbitals)
+   # print("Script initiated")
+   # print("code           : ", code)
+   # print("input file     : ", procarfile)
+   # print("mode           : ", mode)
+   # print("spin comp.     : ", spin)
+   # print("atoms list     : ", atoms)
+   # print("orbs. list     : ", orbitals)
 
     if (
         fermi is None
@@ -100,9 +101,9 @@ def bandsplot(
         and abinit_output is None
         and (code != "elk" and code != "qe" and code != "lobster")
     ):
-        print(
-            "WARNING : Fermi Energy not set! Please set manually or provide output file and set code type."
-        )
+   #     print(
+   #         "WARNING : Fermi Energy not set! Please set manually or provide output file and set code type."
+   #     )
         fermi = 0
 
     elif fermi is None and code == "elk":
@@ -114,32 +115,32 @@ def bandsplot(
     elif fermi is None and code == "lobster":
         fermi = None
 
-    print("fermi energy   : ", fermi)
-    print("energy range   : ", elimit)
+   # print("fermi energy   : ", fermi)
+   # print("energy range   : ", elimit)
 
-    if mask is not None:
-        print("masking thres. : ", mask)
+    #if mask is not None:
+     #   print("masking thres. : ", mask)
 
-    print("colormap       : ", cmap)
-    print("markersize     : ", markersize)
-    print("permissive     : ", permissive)
-    if permissive:
-        print("INFO : Permissive flag is on! Be careful")
-    print("vmax           : ", vmax)
-    print("vmin           : ", vmin)
-    print("grid enabled   : ", grid)
-    if human is not None:
-        print("human          : ", human)
-    print("savefig        : ", savefig)
-    print("title          : ", title)
-    print("outcar         : ", outcar)
+    #print("colormap       : ", cmap)
+    #print("markersize     : ", markersize)
+    #print("permissive     : ", permissive)
+    #if permissive:
+     #   print("INFO : Permissive flag is on! Be careful")
+    #print("vmax           : ", vmax)
+    #print("vmin           : ", vmin)
+    #print("grid enabled   : ", grid)
+    #if human is not None:
+    #   print("human          : ", human)
+    #print("savefig        : ", savefig)
+    #print("title          : ", title)
+    #print("outcar         : ", outcar)
 
-    if kdirect:
-        print("k-grid         :  reduced")
-    else:
-        print(
-            "k-grid         :  cartesian (Remember to provide an output file for this case to work.)"
-        )
+    #if kdirect:
+     #   print("k-grid         :  reduced")
+   # else:
+      #  print(
+      #      "k-grid         :  cartesian (Remember to provide an output file for this case to work.)"
+      #  )
 
     if discontinuities is None:
         discontinuities = []
@@ -393,7 +394,8 @@ def bandsplot(
             ticks=ticks,
             discontinuities=discontinuities,
             ax=ax,
-            nbands=nbands
+            nbands=nbands,
+            datspin=datspin,
         )
         if fermi is not None:
             ax1.set_ylabel(r"$E-E_f$ [eV]")

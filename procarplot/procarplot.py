@@ -24,6 +24,7 @@ class ProcarPlot:
         ax=None,
         label=None,
         nbands=20,
+        datspin=False,
     ):
 
         if not ax:
@@ -66,6 +67,7 @@ class ProcarPlot:
                     y = self.bands.transpose()[ticks[i_tick] : ticks[i_tick + 1] + 1, :]
                     ax.plot(x, y, "r-", marker=marker, markersize=size, color=color, label=label)
 
+
             #### END  OF MODIFIED DISCONTINUOUS BANDS ####
 
             # if ticks are not given
@@ -83,6 +85,7 @@ class ProcarPlot:
                     markersize=size,
                     color=color,
                 )
+    
 
         # if self.kpoints is None
         else:
@@ -97,6 +100,7 @@ class ProcarPlot:
             )
 
         ax.set_xlim(xaxis.min(), xaxis.max())
+
 
         # Handling ticks
         if ticks:
@@ -256,6 +260,7 @@ class ProcarPlot:
         discontinuities=[],
         ax=None,
         nbands=20,
+        datspin=False,
     ):
         bsize, ksize = self.bands.shape
         # plotting
@@ -316,22 +321,40 @@ class ProcarPlot:
                 print(dfx)
                 
                 dfy = pandas.DataFrame(mbands)
-                #print(dfy)
+                print(dfy)
                 
                 dfz = pandas.DataFrame(self.spd)
-                #print(dfz)
+                print(dfz)
 
-                orig_stdout = sys.stdout
-                f = open('proj.dat', 'w')
-                sys.stdout = f
 
-                for b in range(0,nbands):
-                    dfxyz = pandas.concat((dfx.iloc[b].round(decimals=6), dfy.iloc[b].round(decimals=6),dfz.iloc[b].round(decimals=4)), axis=1) 
+                if datspin is False:
+                    orig_stdout = sys.stdout
+                    f = open('proj.dat', 'w')
+                    sys.stdout = f
+
+
+                    for b in range(0,nbands):
+                        dfxyz = pandas.concat((dfx.iloc[b].round(decimals=6), dfy.iloc[b].round(decimals=6),dfz.iloc[b].round(decimals=4)), axis=1) 
                     
-                    print(dfxyz.to_csv(sep='\t', index=False, header=False, float_format="%.6f"))
+                        print(dfxyz.to_csv(sep='\t', index=False, header=False, float_format="%.6f"))
                 
-                sys.stdout = orig_stdout
-                f.close()
+                    sys.stdout = orig_stdout
+                    f.close()
+
+                if datspin is True:
+                               
+                    orig_stdout = sys.stdout
+                    f = open('band.dat', 'w')
+                    sys.stdout = f
+
+                    for b in range(0,nbands):
+                        dfxy = pandas.concat((dfx.iloc[b].round(decimals=6), dfy.iloc[b].round(decimals=6)), axis=1)
+
+                        print(dfxy.to_csv(sep='\t', index=False, header=False, float_format="%.6f"))
+
+                    sys.stdout = orig_stdout
+                    f.close()
+
 
 #/PATH DAT TO GNUPLOT (BARBOSA)
                 fig.colorbar(scatter)
@@ -381,17 +404,33 @@ class ProcarPlot:
                 dfz = pandas.DataFrame(self.spd)
                 print(dfz)
 
-                orig_stdout = sys.stdout
-                f = open('proj.dat', 'w')
-                sys.stdout = f
+                                
+                if datspin is True:
+                               
+                    orig_stdout = sys.stdout
+                    f = open('band.dat', 'w')
+                    sys.stdout = f
 
-                for b in range(0,nbands):
-                    dfxyz = pandas.concat((dfx.iloc[b].round(decimals=6), dfy.iloc[b].round(decimals=6),dfz.iloc[b].round(decimals=4)), axis=1)
+                    for b in range(0,nbands):
+                        dfxy = pandas.concat((dfx.iloc[b].round(decimals=6), dfy.iloc[b].round(decimals=6)), axis=1)
 
-                    print(dfxyz.to_csv(sep='\t', index=False, header=False, float_format="%.6f"))
+                        print(dfxy.to_csv(sep='\t', index=False, header=False, float_format="%.6f"))
 
-                sys.stdout = orig_stdout
-                f.close()
+                    sys.stdout = orig_stdout
+                    f.close()
+                
+                if datspin is False:
+                    orig_stdout = sys.stdout
+                    f = open('proj.dat', 'w')
+                    sys.stdout = f
+ 
+                    for b in range(0,nbands):
+                        dfxyz = pandas.concat((dfx.iloc[b].round(decimals=6), dfy.iloc[b].round(decimals=6),dfz.iloc[b].round(decimals=4)), axis=1)
+
+                        print(dfxyz.to_csv(sep='\t', index=False, header=False, float_format="%.6f"))
+
+                    sys.stdout = orig_stdout
+                    f.close()
 
 
                 #PATH DAT TO GNUPLOT (BARBOSA)
